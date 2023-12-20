@@ -75,10 +75,10 @@ class Tasks extends BddConnect{
 
     public function addTasks(){
         try {
-            $title = $this->title_tasks;
-            $description = $this->description_tasks;
-            $deadline = $this->deadline_tasks;
-            $statut = $this->statut_tasks;
+            $title = $this->getTitle();
+            $description = $this->getDescription();
+            $deadline = $this->getDeadline();
+            $statut = $this->getStatut();
             $req = $this->connexion()->prepare("INSERT INTO tasks(title_tasks, description_tasks, deadline_tasks, statut_tasks) VALUES(?,?,?,?)");
             $req->bindParam(1, $title, \PDO::PARAM_STR);
             $req->bindParam(2, $description, \PDO::PARAM_STR);
@@ -92,10 +92,10 @@ class Tasks extends BddConnect{
 
     public function editTasks(){
         try {
-            $title = $this->title_tasks;
-            $description = $this->description_tasks;
-            $deadline = $this->deadline_tasks;
-            $id = $this->id_tasks;
+            $title = $this->getTitle();
+            $description = $this->getDescription();
+            $deadline = $this->getDeadline();
+            $id = $this->getId();
             $req = $this->connexion()->prepare("UPDATE tasks SET title_tasks = ?, description_tasks = ?, deadline_tasks = ? WHERE id_tasks = ?");
             $req->bindParam(1, $title, \PDO::PARAM_STR);
             $req->bindParam(2, $description, \PDO::PARAM_STR);
@@ -110,7 +110,7 @@ class Tasks extends BddConnect{
 
     public function showEditTasks(){
         try {
-            $id = $this->id_tasks;
+            $id = $this->getId();
             $req = $this->connexion()->prepare("SELECT title_tasks, description_tasks, deadline_tasks FROM tasks WHERE id_tasks = ?");
             $req->bindParam(1, $id, \PDO::PARAM_INT);
             $req->execute();
@@ -139,7 +139,7 @@ class Tasks extends BddConnect{
     }
     public function completedTasks(){
         try {
-            $id = $this->id_tasks;
+            $id = $this->getId();
             $req = $this->connexion()->prepare("UPDATE tasks SET statut_tasks = 1 WHERE id_tasks = ?");
             $req->bindParam(1, $id, \PDO::PARAM_INT);
             $req->execute();

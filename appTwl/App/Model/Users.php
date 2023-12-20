@@ -60,12 +60,12 @@ class Users extends BddConnect{
     public function addUser(){
         try {
             //récupérer les données de l'objet
-            $nom = $this->name_users;
-            $prenom = $this->firstname_users;
-            $mail = $this->email_users;
-            $password = $this->password_users;
-            $image = $this->image_users;
-            $statut = $this->statut_users;
+            $nom = $this->getNom();
+            $prenom = $this->getPrenom();
+            $mail = $this->getMail();
+            $password = $this->getPassword();
+            $image = $this->getImage();
+            $statut = $this->getStatut();
             $req = $this->connexion()->prepare(
                 "INSERT INTO users(name_users, firstname_users, 
                 email_users, password_users, image_users, statut_users) VALUES(?,?,?,?,?,?)");
@@ -83,7 +83,7 @@ class Users extends BddConnect{
     public function findOneBy(){
         try {
             //récupérer les données de l'objet
-            $mail = $this->email_users;
+            $mail = $this->getMail();
             $req = $this->connexion()->prepare(
                 "SELECT id_users, name_users, firstname_users, 
                 email_users, password_users, statut_users, image_users 
@@ -111,7 +111,7 @@ class Users extends BddConnect{
     }
     public function updateMail(){
         try {
-            $mail = $this->email_users;
+            $mail = $this->getMail();
             $req = $this->connexion()->prepare('UPDATE users SET 
             statut_users = true WHERE email_users = ?');
             $req->bindParam(1, $mail, \PDO::PARAM_STR);
